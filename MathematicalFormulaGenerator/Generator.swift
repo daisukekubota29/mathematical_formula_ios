@@ -65,7 +65,7 @@ class Generator {
         var result:[String] = [String]();
         generateAllReversePolishNotation(&result, numArray: numArray, rpn: [AnyObject](), numIndex: 0, opeCount: 0, success:success);
         var orderSet = NSOrderedSet(array: result);
-        result = orderSet.array as [String];
+        result = orderSet.array as! [String];
         for str in result {
             NSLog("result: %@", str);
         }
@@ -134,12 +134,12 @@ class Generator {
         var stack:Stack<Float> = Stack();
         for obj:AnyObject in rpn {
             if (obj is Int) {
-                stack.push(Float(obj as Int));
+                stack.push(Float(obj as! Int));
             } else if (obj is String) {
                 if (stack.count() < 2) {
                     return nil;
                 }
-                let ope:String = obj as String;
+                let ope:String = obj as! String;
                 let num2:Float! = stack.pop()!;
                 let num1:Float! = stack.pop()!;
                 if (ope == "+") {
@@ -182,23 +182,23 @@ class Generator {
     // Treeを文字列に変換する
     func treeToString(tree:Tree, operatorRank:Int) -> String {
         if (tree.key is Int) {
-            return String(tree.key as Int);
+            return String(tree.key as! Int);
         }
         var str:String = "";
         var rank:Int = 0;
         if (tree.key is String) {
-            rank = toOperatorRank(tree.key as String);
+            rank = toOperatorRank(tree.key as! String);
         }
         if (tree.left is Tree) {
-            let left:Tree = tree.left as Tree;
+            let left:Tree = tree.left as! Tree;
             str += treeToString(left, operatorRank:rank);
         }
         if (tree.key is String) {
-            let key:String = tree.key as String;
+            let key:String = tree.key as! String;
             str += key;
         }
         if (tree.right is Tree) {
-            let right:Tree = tree.right as Tree;
+            let right:Tree = tree.right as! Tree;
             str += treeToString(right, operatorRank:rank);
         }
         if (operatorRank >= rank) {

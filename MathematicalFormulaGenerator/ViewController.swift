@@ -26,17 +26,18 @@ class ViewController: UIViewController {
         var views:[UIView] = findViews(view, tag: 100);
         var result:Bool = true;
         for subview in views {
-            if (subview is UITextView) {
-                var textView:UITextView = subview as UITextView;
-                if (countElements(textView.text) == 0) {
+            if (subview is UITextField) {
+                var textView:UITextField = subview as! UITextField;
+                if (count(textView.text) == 0) {
                     textView.text = "0";
                 }
                 var textInt:Int? = textView.text.toInt();
                 if (textInt == nil) {
                     textView.backgroundColor = UIColor.redColor();
                     result = false;
+                } else {
+                    textView.backgroundColor = UIColor.whiteColor();
                 }
-                textView.backgroundColor = UIColor.whiteColor();
             }
         }
         
@@ -47,33 +48,34 @@ class ViewController: UIViewController {
         var views:[UIView] = findViews(self.view, tag: 100);
         var nums:[Int] = [Int]();
         for view in views {
-            if (view is UITextView) {
-                var textView:UITextView = view as UITextView;
+            if (view is UITextField) {
+                var textView:UITextField = view as! UITextField;
                 var textInt:Int? = textView.text.toInt();
                 if (textInt != nil) {
                     nums.append(textInt!);
                 }
             }
         }
-        var controller:ResultViewController = segue.destinationViewController as ResultViewController;
+        var controller:ResultViewController = segue.destinationViewController as! ResultViewController;
         controller.inputNumbers = nums;
     }
 
     @IBAction func onClickButton(sender: AnyObject) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            var generator:Generator = Generator();
-            generator.test();
+        var views:[UIView] = findViews(self.view, tag: 100);
+        for view in views {
+            if (view is UITextField) {
+                var textField = view as! UITextField;
+                var n = arc4random() % 100;
+                textField.text = String(n);
+            }
         }
     }
     
     func onTapGestureRecognizer(recognizer: UIGestureRecognizer) {
-        NSLog("%@", __FUNCTION__);
         var views:[UIView] = findViews(self.view, tag: 100);
         for view in views {
-            if (view is UITextView) {
-                NSLog("for");
+            if (view is UITextField) {
                 if (view.isFirstResponder()) {
-                    NSLog("isFirstResponder()");
                     view.resignFirstResponder();
                 }
             }
@@ -85,7 +87,7 @@ class ViewController: UIViewController {
         var result:[UIView] = [UIView]();
         for (var i:Int = 0; i < findView.subviews.count; i++) {
             if (findView.subviews[i] is UIView) {
-                var subView:UIView = findView.subviews[i] as UIView;
+                var subView:UIView = findView.subviews[i] as! UIView;
                 if (subView.tag == tag) {
                     result.append(subView);
                 }
