@@ -12,66 +12,16 @@ import Foundation
 // TODO: 高速化
 class Generator {
     
-    func test() {
-        var rpn:[AnyObject] = [ 1, 5, "+", 2, 3, "+", "*"];
-        var calcResult:Float? = calculateReversePolishNotation(rpn);
-        var normal:String = reversePolishNotationToNormalFromat(rpn);
-        print(__FUNCTION__, obj: calcResult);
-        NSLog("%@, normal = %@", __FUNCTION__, normal);
-        rpn = [ 1, 2, 3, "*", 4, "/", "-", 5, "+"];
-        calcResult = calculateReversePolishNotation(rpn);
-        normal = reversePolishNotationToNormalFromat(rpn);
-        print(__FUNCTION__, obj: calcResult);
-        NSLog("%@, normal = %@", __FUNCTION__, normal);
-        // ((1 * (2 * 3)) + 4) * 5 + (4 / 2) -> 123**4+5*42/+
-        rpn = [ 1, 2, 3, "*", "*", 4, "+", 5, "*", 4, 2, "/", "+"];
-        calcResult = calculateReversePolishNotation(rpn);
-        normal = reversePolishNotationToNormalFromat(rpn);
-        print(__FUNCTION__, obj: calcResult);
-        NSLog("%@, normal = %@", __FUNCTION__, normal);
-        
-        // 123/*4+5*42/+
-        rpn = [ 1, 2, 3, "/", "*", 4, "+", 5, "*", 4, 2, "/", "+"];
-        calcResult = calculateReversePolishNotation(rpn);
-        normal = reversePolishNotationToNormalFromat(rpn);
-        print(__FUNCTION__, obj: calcResult);
-        NSLog("%@, normal = %@", __FUNCTION__, normal);
-        
-        // 1 2 + 3 – 5 * 4 /
-        rpn = [ 1, 2, "+", 3, "-", 5, "*", 4, "/"];
-        calcResult = calculateReversePolishNotation(rpn);
-        normal = reversePolishNotationToNormalFromat(rpn);
-        print(__FUNCTION__, obj: calcResult);
-        NSLog("%@, normal = %@", __FUNCTION__, normal);
-        
-        let start:NSDate = NSDate();
-        generateReversePolishNotation([1, 1, 5, 8], success:10);
-//        generateReversePolishNotation([1, 2, 3, 4, 5], success:10);
-//        generateReversePolishNotation([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], success:100);
-//        generateReversePolishNotation([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], success:100);
-        let end:NSDate = NSDate();
-        NSLog("generate time: %f", end.timeIntervalSinceNow - start.timeIntervalSinceNow);
-    }
-    
-    func print(funcName:String, obj:Float?) {
-        if (obj != nil) {
-            NSLog("%@, result = %f", funcName, obj!);
-        } else {
-            NSLog("%@, result = nil", funcName);
-        }
-    }
-    
-    func generateReversePolishNotation(numArray: [Int], success:Int) -> [String] {
+    // 配列と取得したい数字から数式を文字列で取得
+    func getMathematicalFormula(numArray: [Int], success:Int) -> [String] {
         var result:[String] = [String]();
         generateAllReversePolishNotation(&result, numArray: numArray, rpn: [AnyObject](), numIndex: 0, opeCount: 0, success:success);
         var orderSet = NSOrderedSet(array: result);
         result = orderSet.array as! [String];
-        for str in result {
-            NSLog("result: %@", str);
-        }
         return result;
     }
     
+    // 配列からすべての逆ポーランド記法を作成し、計算を行い指定した数値になる数式を結果配列に追加する
     func generateAllReversePolishNotation(inout result: [String], numArray: [Int], rpn: [AnyObject], numIndex:Int, opeCount:Int, success:Int) {
         if (rpn.count >= numArray.count + numArray.count - 1) {
             var str:String = "";

@@ -44,7 +44,7 @@ class ResultViewController: UIViewController, UITableViewDataSource {
             self.runThread = true;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 var generator:Generator = Generator();
-                var result:[String] = generator.generateReversePolishNotation(self.inputNumbers!, success: 100);
+                var result:[String] = generator.getMathematicalFormula(self.inputNumbers!, success: 100);
                 dispatch_async(dispatch_get_main_queue()) {
                     if (result.count == 0) {
                         var alert:UIAlertController = UIAlertController(title: "答えなし", message: "答えが発見できませんでした", preferredStyle: UIAlertControllerStyle.Alert);
