@@ -8,7 +8,8 @@
 
 import Foundation
 
-//
+// TODO: 並びだけ変わった重複が存在する
+// TODO: 高速化
 class Generator {
     
     func test() {

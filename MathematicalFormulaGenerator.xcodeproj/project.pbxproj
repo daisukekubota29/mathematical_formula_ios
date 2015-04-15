@@ -16,6 +16,7 @@
 		AB2C8C831ADDF94B00AAC8FA /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C8C821ADDF94B00AAC8FA /* Generator.swift */; };
 		AB2C8C851ADDFB7000AAC8FA /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C8C841ADDFB7000AAC8FA /* Stack.swift */; };
 		AB2C8C871ADE063F00AAC8FA /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C8C861ADE063F00AAC8FA /* Tree.swift */; };
+		AB2C8C891ADE7EDA00AAC8FA /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C8C881ADE7EDA00AAC8FA /* ResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		AB2C8C821ADDF94B00AAC8FA /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		AB2C8C841ADDFB7000AAC8FA /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		AB2C8C861ADE063F00AAC8FA /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		AB2C8C881ADE7EDA00AAC8FA /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			children = (
 				AB2C8C621ADDF8EA00AAC8FA /* AppDelegate.swift */,
 				AB2C8C641ADDF8EA00AAC8FA /* ViewController.swift */,
+				AB2C8C881ADE7EDA00AAC8FA /* ResultViewController.swift */,
 				AB2C8C661ADDF8EA00AAC8FA /* Main.storyboard */,
 				AB2C8C691ADDF8EA00AAC8FA /* Images.xcassets */,
 				AB2C8C6B1ADDF8EA00AAC8FA /* LaunchScreen.xib */,
@@ -226,6 +229,7 @@
 				AB2C8C831ADDF94B00AAC8FA /* Generator.swift in Sources */,
 				AB2C8C651ADDF8EA00AAC8FA /* ViewController.swift in Sources */,
 				AB2C8C631ADDF8EA00AAC8FA /* AppDelegate.swift in Sources */,
+				AB2C8C891ADE7EDA00AAC8FA /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
