@@ -18,6 +18,8 @@ class ResultViewController: UIViewController, UITableViewDataSource {
     
     var runThread:Bool = false;
     
+    var _generator:Generator = Generator();
+    
     var _inputNumbers:[Int]?;
     var inputNumbers:[Int]? {
         get {
@@ -43,16 +45,23 @@ class ResultViewController: UIViewController, UITableViewDataSource {
             self.indicatorView.startAnimating();
             self.runThread = true;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                var generator:Generator = Generator();
-                var result:[String] = generator.getMathematicalFormula(self.inputNumbers!, success: 100);
+                let start:NSDate = NSDate();
+                var result:[String] = self._generator.getMathematicalFormula(self.inputNumbers!, success: 100);
+                var end:NSDate = NSDate();
+                NSLog("%@, time = %f", __FUNCTION__, (end.timeIntervalSinceNow - start.timeIntervalSinceNow));
                 dispatch_async(dispatch_get_main_queue()) {
-                    if (result.count == 0) {
+                    if (self._generator.isCanceled()) {
+                        if (self.navigationController?.topViewController == self) {
+                            self.navigationController?.popViewControllerAnimated(true);
+                        }
+                    } else if (result.count == 0) {
+                        self.navigationController?.popViewControllerAnimated(true);
                         var alert:UIAlertController = UIAlertController(title: "答えなし", message: "答えが発見できませんでした", preferredStyle: UIAlertControllerStyle.Alert);
                         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel) { (action) -> Void in
                         }
                         alert.addAction(okAction);
                         self.navigationController?.presentViewController(alert, animated: true, completion: nil);
-                        self.navigationController?.popToRootViewControllerAnimated(true);
+                        
                     } else {
                         self.indicatorView.stopAnimating();
                         self.result = result;
@@ -62,6 +71,11 @@ class ResultViewController: UIViewController, UITableViewDataSource {
                 }
             }
         }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated);
+        _generator.cancel();
     }
     
     override func didReceiveMemoryWarning() {

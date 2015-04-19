@@ -12,21 +12,30 @@ import Foundation
 // TODO: 高速化
 class Generator {
     
+    var _canceled:Bool = false;
+    
+    var _index:Int = 0;
+    
     // 配列と取得したい数字から数式を文字列で取得
     func getMathematicalFormula(numArray: [Int], success:Int) -> [String] {
+        _canceled = false;
         var result:[String] = [String]();
+        _index = 0;
         generateAllReversePolishNotation(&result, numArray: numArray, rpn: [AnyObject](), numIndex: 0, opeCount: 0, success:success);
         var orderSet = NSOrderedSet(array: result);
+        NSLog("count = %d", _index);
         result = orderSet.array as! [String];
         return result;
     }
     
     // 配列からすべての逆ポーランド記法を作成し、計算を行い指定した数値になる数式を結果配列に追加する
     func generateAllReversePolishNotation(inout result: [String], numArray: [Int], rpn: [AnyObject], numIndex:Int, opeCount:Int, success:Int) {
-        if (rpn.count >= numArray.count + numArray.count - 1) {
+        if (_canceled) {
+            return result.removeAll();
+        }
+        if (numIndex + opeCount >= numArray.count + numArray.count - 1) {
+            _index++;
             var str:String = "";
-            
-            
             var cal:Float? = calculateReversePolishNotation(rpn);
             if (cal != nil && abs(cal! - Float(success)) < 0.01) {
                 result.append(reversePolishNotationToNormalFromat(rpn));
@@ -78,6 +87,7 @@ class Generator {
         }
         
     }
+
     
     // 逆ポーランド記法で入っている配列を計算する
     func calculateReversePolishNotation(rpn: [AnyObject]) -> Float? {
@@ -185,8 +195,14 @@ class Generator {
             tree.left = left;
             tree.key = obj;
         }
-        
-        
+    }
+    
+    func isCanceled() -> Bool {
+        return _canceled;
+    }
+    
+    func cancel() {
+        _canceled = true;
     }
     
 }

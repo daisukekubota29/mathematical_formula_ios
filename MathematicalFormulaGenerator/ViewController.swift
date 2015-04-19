@@ -32,7 +32,7 @@ class ViewController: UIViewController {
                     textView.text = "0";
                 }
                 var textInt:Int? = textView.text.toInt();
-                if (textInt == nil) {
+                if (textInt == nil || textInt >= 10) {
                     textView.backgroundColor = UIColor.redColor();
                     result = false;
                 } else {
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         for view in views {
             if (view is UITextField) {
                 var textField = view as! UITextField;
-                var n = arc4random() % 100;
+                var n = arc4random() % 10;
                 textField.text = String(n);
             }
         }
